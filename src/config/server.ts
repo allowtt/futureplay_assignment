@@ -1,5 +1,3 @@
-import path from 'path'
-
 export interface FuturePlayServerOptions {
   PORT: number
   JwtSecret: string
