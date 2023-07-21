@@ -1,0 +1,32 @@
+version: '3.3'
+
+networks:
+  portal:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+services:
+  db:
+    platform: linux/x86_64
+    image: postgres:latest
+    container_name: postgres
+    networks:
+      portal:
+        ipv4_address: 172.20.0.5
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: test1234
+      POSTGRES_DB: futureplay
+
+  adminer:
+    image: adminer
+    restart: always
+    container_name: postgres-admin
+    networks:
+      portal:
+        ipv4_address: 172.20.0.6
+    ports:
+      - 3002:8080
