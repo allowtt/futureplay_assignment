@@ -1,5 +1,6 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm'
+import { BeforeInsert, Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm'
 import { FuturePlayEntity } from 'src/common/entities/FuturePlayEntity'
+import { Utils } from 'src/common/utils'
 
 @Index('email', ['email'], { unique: true })
 @Entity()
@@ -21,4 +22,14 @@ export class Users extends FuturePlayEntity {
 
   @Column('timestamp', { comment: '마지막 접속 시각', nullable: false })
   lastAccessTime!: Date
+
+  @BeforeInsert()
+  updateLastLoginToken() {
+    this.lastLoginToken = Utils.getNowDateToken()
+  }
+
+  @BeforeInsert()
+  updateLastAccessTime() {
+    this.lastAccessTime = Utils.getNowDate()
+  }
 }

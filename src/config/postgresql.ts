@@ -1,5 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
-import { Users } from 'src/modules/user/entities/Users'
+import { Users } from 'src/modules/users/entities/Users'
 
 const entities = [Users]
 export const PostgreSQLOptions: TypeOrmModuleOptions = (function (): TypeOrmModuleOptions {
