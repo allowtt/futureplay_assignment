@@ -1,14 +1,40 @@
 import moment from 'moment-timezone'
 import { TIME_ZONE } from 'src/config/server'
 import bcrypt from 'bcryptjs'
-import { FuturePlayError } from './errors'
+import { ErrorMap, FuturePlayError } from './errors'
 import _, { isFunction } from 'lodash'
 import { HttpException } from '@nestjs/common'
+import { Secret, sign, verify } from 'jsonwebtoken'
 
 export const Utils = {
   genSaltedPassword: async (pw: string, iteration = 10) => {
     const salt = await bcrypt.genSalt(iteration)
     return bcrypt.hash(pw, salt)
+  },
+  checkSaltedPassword: async (pw: string, salted: string) => {
+    return bcrypt.compare(pw, salted)
+  },
+  signJWT: async (payload: string | Buffer | object, secret: Secret): Promise<string> => {
+    return new Promise((res) => {
+      sign(payload, secret, { algorithm: 'HS256' }, (err, token) => {
+        if (err) {
+          Utils.ensure(false, ErrorMap.JWTVerificationError)
+        } else {
+          res(token!)
+        }
+      })
+    })
+  },
+  verifyJWT: async (token: string, secret: string) => {
+    return new Promise((res) => {
+      verify(token, secret, (err, payload) => {
+        if (err) {
+          Utils.ensure(false, ErrorMap.JWTVerificationError)
+        } else {
+          res(payload)
+        }
+      })
+    })
   },
   ensure: (expr: any, errorObject: FuturePlayError | (() => FuturePlayError)): boolean => {
     if (!expr) {

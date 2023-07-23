@@ -22,3 +22,19 @@ export class JoinRequestDto {
   })
   public password: string
 }
+
+export class LoginRequestDto {
+  @ApiProperty({
+    example: 'test@gmail.com',
+    description: '이메일',
+    required: true,
+  })
+  public email: string
+
+  @ApiProperty({
+    example: 'password1',
+    description: '비밀번호',
+    required: true,
+  })
+  public password: string
+}
