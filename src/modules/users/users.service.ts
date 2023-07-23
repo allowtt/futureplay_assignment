@@ -39,14 +39,11 @@ export class UsersService {
   async loginUser(data: LoginRequestDto) {
     const { email } = data
     const user: Users = await this.usersRepository.findOneOrFail({ where: { email } }).catch(() => null)
-    console.log(111)
     Utils.ensure(user, ErrorMap.WrongLoginInfo)
 
     const chkPassword = await Utils.checkSaltedPassword(data.password, user.password.toString())
-    console.log(222)
     Utils.ensure(chkPassword, ErrorMap.NotMatchPassword)
 
-    console.log(user.role)
     const tokenData = { id: user.userId, role: user.role, ts: Utils.getNowDate().getTime() }
     const jwtToken = await Utils.signJWT(tokenData, '1234')
 
@@ -61,7 +58,6 @@ export class UsersService {
       where: { userId: user.userId },
     })
 
-    console.log(password)
     const result = { message: 'success', keyName, token: jwtToken, me: userRestProperties }
     return result
   }

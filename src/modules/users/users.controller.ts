@@ -26,7 +26,6 @@ export class UsersController {
 
   @Post('login')
   async login(@Body() data: LoginRequestDto, @Response() res) {
-    console.log(`login 시작`)
     const result = await this.usersService.loginUser(data)
     const keyName = result.keyName
     const jwtToken = result.token
