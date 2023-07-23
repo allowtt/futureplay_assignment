@@ -3,9 +3,11 @@ import { AppModule } from './app.module'
 import { ServerOptions } from './config/server'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import expressBasicAuth from 'express-basic-auth'
+import cookieParser from 'cookie-parser'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
+  app.use(cookieParser(ServerOptions.CookieSecret))
   app.use(
     ['/api'], // docs(swagger end point)에 진입시
     expressBasicAuth({
