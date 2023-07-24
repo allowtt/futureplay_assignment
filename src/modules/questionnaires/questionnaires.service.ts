@@ -17,6 +17,7 @@ import { ListableOutput } from '../common/common.pageResponse'
 import { Users } from '../users/entities/Users'
 import { QuestionnaireUserResults } from './entities/QuestionnaireUserResults'
 import { USER_ROLE } from '../users/users.const'
+import { PageRequest } from '../common/common.pageRequest'
 
 @Injectable()
 export class QuestionnairesService {
@@ -81,6 +82,12 @@ export class QuestionnairesService {
     return result
   }
 
+  async listableQuestionnaires(data: PageRequest) {
+    const qb = this.questionnairesRepository.createQueryBuilder('q').orderBy('q.questionnaireId', 'DESC')
+
+    const listResult = await ListableOutput(qb, data)
+    return listResult
+  }
   async getQuestion(questionnaireContentId: number) {
     const qb: QuestionnaireContents = await this.questionnaireContentsRepository
       .createQueryBuilder('qc')
