@@ -4,12 +4,20 @@ import { ServerOptions } from './config/server'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import expressBasicAuth from 'express-basic-auth'
 import cookieParser from 'cookie-parser'
+import { CustomValidationPipe } from './modules/common/common.validation'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   app.use(cookieParser(ServerOptions.CookieSecret))
+  app.enableCors({
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  })
+  app.useGlobalPipes(new CustomValidationPipe())
+
   app.use(
-    ['/api'], // docs(swagger end point)에 진입시
+    ['/swagger'], // docs(swagger end point)에 진입시
     expressBasicAuth({
       challenge: true,
       users: {
@@ -25,8 +33,8 @@ async function bootstrap() {
     .addTag('FuturePlay')
     .build()
   const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api', app, document)
-  const port = ServerOptions.PORT
-  await app.listen(port)
+  SwaggerModule.setup('swagger', app, document)
+  await app.listen(ServerOptions.PORT)
+  console.log(`listening on port ${ServerOptions.PORT}`)
 }
 bootstrap()

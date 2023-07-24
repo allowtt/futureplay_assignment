@@ -1,7 +1,8 @@
-import { BeforeInsert, Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm'
+import { BeforeInsert, Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { FuturePlayEntity } from 'src/modules/common/entities/FuturePlayEntity'
 import { Utils } from 'src/modules/common/utils'
 import { USER_ROLE } from '../users.const'
+import { QuestionnaireUserResults } from 'src/modules/questionnaires/entities/QuestionnaireUserResults'
 
 @Index('email', ['email'], { unique: true })
 @Entity()
@@ -26,6 +27,13 @@ export class Users extends FuturePlayEntity {
 
   @Column('timestamp', { comment: '마지막 접속 시각', nullable: false })
   lastAccessTime!: Date
+
+  @OneToMany(() => QuestionnaireUserResults, (entity) => entity.user, {
+    nullable: true,
+    eager: false,
+    lazy: true,
+  })
+  questionnaireUserResults!: QuestionnaireUserResults[]
 
   @BeforeInsert()
   updateLastLoginToken() {

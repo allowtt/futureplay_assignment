@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { IsNotEmpty, IsEmail, IsString } from 'class-validator'
 
 export class JoinRequestDto {
   @ApiProperty({
@@ -6,6 +7,8 @@ export class JoinRequestDto {
     description: 'email',
     required: true,
   })
+  @IsEmail()
+  @IsNotEmpty()
   public email: string
 
   @ApiProperty({
@@ -13,6 +16,8 @@ export class JoinRequestDto {
     description: 'name',
     required: true,
   })
+  @IsNotEmpty()
+  @IsString()
   public name: string
 
   @ApiProperty({
@@ -20,6 +25,8 @@ export class JoinRequestDto {
     description: 'password',
     required: true,
   })
+  @IsNotEmpty()
+  @IsString()
   public password: string
 }
 
@@ -29,6 +36,8 @@ export class LoginRequestDto {
     description: '이메일',
     required: true,
   })
+  @IsEmail()
+  @IsNotEmpty()
   public email: string
 
   @ApiProperty({
@@ -36,5 +45,7 @@ export class LoginRequestDto {
     description: '비밀번호',
     required: true,
   })
+  @IsNotEmpty()
+  @IsString()
   public password: string
 }
