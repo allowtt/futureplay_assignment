@@ -13,6 +13,7 @@ import { FuturePlayAuthRole } from '../common/auth/roles.const'
 import { Roles } from '../common/decorator/roles.decorator'
 import { UserInfo } from '../common/decorator/users.decorator'
 import { Users } from '../users/entities/Users'
+import { PageRequest } from '../common/common.pageRequest'
 
 @ApiTags('설문지 API')
 @Controller('api/questionnaires')
@@ -38,6 +39,14 @@ export class QuestionnairesController {
   @Post('/content/create')
   async createQuestionnaireContent(@Body() data: CreateQuestionnaireContentReqeustDto) {
     return this.questionnairesService.createQuestionnaireContent(data)
+  }
+
+  @ApiOperation({ summary: '설문지 다건 조회' })
+  // @ApiResponse({ status: 200, type: GetWorkspaceDto })
+  @Roles(FuturePlayAuthRole.User, FuturePlayAuthRole.Admin)
+  @Get('/list')
+  async listableQuestionnaires(@Query() data: PageRequest) {
+    return this.questionnairesService.listableQuestionnaires(data)
   }
 
   @ApiOperation({ summary: '설문지 내용(항목) 다건 조회' })
