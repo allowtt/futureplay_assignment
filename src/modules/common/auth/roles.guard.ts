@@ -62,7 +62,6 @@ export class RolesGuard implements CanActivate {
           userId = null
         }
       }
-      console.log(userId)
       if (roles.includes(FuturePlayAuthRole.User) && !userId) {
         try {
           userId = (await parseJWT(request, FuturePlayAuthRole.User)).id

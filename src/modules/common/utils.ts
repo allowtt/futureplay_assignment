@@ -1,5 +1,5 @@
 import moment from 'moment-timezone'
-import { TIME_ZONE } from 'src/config/server'
+import { TIME_ZONE } from '../../config/server'
 import bcrypt from 'bcryptjs'
 import { ErrorMap, FuturePlayError } from './errors'
 import _, { isFunction } from 'lodash'

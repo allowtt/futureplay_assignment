@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { FuturePlayEntity } from 'src/modules/common/entities/FuturePlayEntity'
-import { Users } from 'src/modules/users/entities/Users'
+import { FuturePlayEntity } from '../../common/entities/FuturePlayEntity'
+import { Users } from '../../users/entities/Users'
 import { QuestionnaireContents } from './QuestionnaireContents'
 
 @Entity()

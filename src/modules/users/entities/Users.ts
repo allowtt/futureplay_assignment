@@ -1,8 +1,8 @@
 import { BeforeInsert, Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
-import { FuturePlayEntity } from 'src/modules/common/entities/FuturePlayEntity'
-import { Utils } from 'src/modules/common/utils'
+import { FuturePlayEntity } from '../../common/entities/FuturePlayEntity'
+import { Utils } from '../../common/utils'
 import { USER_ROLE } from '../users.const'
-import { QuestionnaireUserResults } from 'src/modules/questionnaires/entities/QuestionnaireUserResults'
+import { QuestionnaireUserResults } from '../../questionnaires/entities/QuestionnaireUserResults'
 
 @Index('email', ['email'], { unique: true })
 @Entity()

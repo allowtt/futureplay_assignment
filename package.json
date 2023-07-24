@@ -18,6 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "seed": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js seed -d ./dataSource.ts",
     "db": "docker-compose -f res/docker/local.yml up"
   },
   "dependencies": {
@@ -38,7 +39,8 @@
     "jsonwebtoken": "^9.0.0",
     "cookie-parser": "^1.4.6",
     "class-validator": "^0.14.0",
-    "class-transformer": "^0.5.1"
+    "class-transformer": "^0.5.1",
+    "typeorm-extension": "2.8.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

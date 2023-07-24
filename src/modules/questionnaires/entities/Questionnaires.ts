@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
-import { FuturePlayEntity } from 'src/modules/common/entities/FuturePlayEntity'
+import { FuturePlayEntity } from '../../common/entities/FuturePlayEntity'
 import { QuestionnaireContents } from './QuestionnaireContents'
 import { ApiProperty } from '@nestjs/swagger'
 
