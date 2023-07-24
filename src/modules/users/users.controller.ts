@@ -6,6 +6,7 @@ import { Roles } from '../common/decorator/roles.decorator'
 import { FuturePlayAuthRole, JWT_NAME } from '../common/auth/roles.const'
 import { UserInfo } from '../common/decorator/users.decorator'
 import { Users } from './entities/Users'
+import { USER_ROLE } from './users.const'
 
 @ApiTags('유저 API')
 @Controller('api/users')
@@ -31,6 +32,11 @@ export class UsersController {
     const jwtToken = result.token
     res.cookie(keyName, jwtToken, { signed: true })
     res.set(keyName, jwtToken)
+    if (result.me.role === USER_ROLE.admin) {
+      res.cookie(JWT_NAME[FuturePlayAuthRole.User], '', { signed: true })
+    } else {
+      res.cookie(JWT_NAME[FuturePlayAuthRole.Admin], '', { signed: true })
+    }
 
     return res.send(result)
   }

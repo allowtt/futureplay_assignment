@@ -36,7 +36,9 @@
     "lodash": "^4.17.21",
     "dotenv": "^16.0.3",
     "jsonwebtoken": "^9.0.0",
-    "cookie-parser": "^1.4.6"
+    "cookie-parser": "^1.4.6",
+    "class-validator": "^0.14.0",
+    "class-transformer": "^0.5.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

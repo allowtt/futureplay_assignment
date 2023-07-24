@@ -1,7 +1,10 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
+import { QuestionnaireContents } from 'src/modules/questionnaires/entities/QuestionnaireContents'
+import { QuestionnaireUserResults } from 'src/modules/questionnaires/entities/QuestionnaireUserResults'
+import { Questionnaires } from 'src/modules/questionnaires/entities/Questionnaires'
 import { Users } from 'src/modules/users/entities/Users'
 
-const entities = [Users]
+const entities = [Users, Questionnaires, QuestionnaireContents, QuestionnaireUserResults]
 export const PostgreSQLOptions: TypeOrmModuleOptions = (function (): TypeOrmModuleOptions {
   switch (process.env.ENV) {
     default:
